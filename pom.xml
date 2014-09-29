@@ -42,7 +42,7 @@
 			<artifactId>jersey-servlet</artifactId>
 			<version>1.18</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.sun.jersey.contribs</groupId>
 			<artifactId>jersey-spring</artifactId>
@@ -97,7 +97,7 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.31</version>
 		</dependency>
-		
+
 		<!-- Utils -->
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>

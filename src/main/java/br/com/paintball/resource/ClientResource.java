@@ -66,6 +66,5 @@ public class ClientResource {
 			return new Gson().toJson("Invalid User.");
 		}
 	}*/
-	
 
 }
