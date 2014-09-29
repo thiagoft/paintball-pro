@@ -1,10 +1,12 @@
 package br.com.paintball.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import br.com.paintball.model.entity.Room;
 import br.com.paintball.model.entity.User;
 
+@Component
 public class ClientDao {
 
 	private GenericDao genericDao;
