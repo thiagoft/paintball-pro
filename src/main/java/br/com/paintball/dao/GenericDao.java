@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.springframework.stereotype.Repository;
 
+import enums.EnumStatus;
 import br.com.paintball.model.entity.Room;
 import br.com.paintball.model.entity.User;
 
@@ -34,7 +35,8 @@ public class GenericDao {
 					break;
 				}
 			}
-			return userMap.get(user.getRoomKey());
+			userMap.get(user.getRoomKey()).add(user);
+			return new Room(user.getRoomKey(),EnumStatus.ATIVO.getStatus(),userMap.get(user.getRoomKey()));
 		} else {
 			return null;
 		}

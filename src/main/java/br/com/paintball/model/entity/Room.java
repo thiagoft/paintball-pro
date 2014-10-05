@@ -2,6 +2,8 @@ package br.com.paintball.model.entity;
 
 import java.util.Set;
 
+import com.google.gson.Gson;
+
 public class Room {
 
 	public Room(Long roomKey, Integer status, Set<User> userList) {
@@ -25,6 +27,10 @@ public class Room {
 	}
 	public Set<User> getUserList() {
 		return userList;
+	}
+	
+	public String toJSON() {
+		return new Gson().toJson(this);
 	}
 	
 }

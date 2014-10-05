@@ -1,5 +1,7 @@
 package br.com.paintball.model.entity;
 
+import com.google.gson.Gson;
+
 
 public class User {
 	
@@ -42,6 +44,14 @@ public class User {
 		this.commands = commands;
 	}
 	
+	public User(String userName, Coordinate coordinate, Integer userClass, Long roomKey, Commands commands) {
+		this.userName = userName;
+		this.coordinate = coordinate;
+		this.userClass = userClass;
+		this.roomKey = roomKey;
+		this.commands = commands;
+	}
+	
 	public User() {
 	}
 
@@ -75,6 +85,10 @@ public class User {
 		} else if (!userName.equals(other.userName))
 			return false;
 		return true;
+	}
+	
+	public String toJSON() {
+		return new Gson().toJson(this);
 	}
 	
 }

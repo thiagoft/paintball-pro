@@ -47,5 +47,7 @@ public class Commands {
 		this.live = live;
 		this.leaderCall = leaderCall;
 	}
+	
+	public Commands(){}
 
 }
