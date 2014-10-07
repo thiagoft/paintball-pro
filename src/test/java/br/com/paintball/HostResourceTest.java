@@ -44,7 +44,7 @@ public class HostResourceTest {
 	    String jsonRoom = service.path("host").path("get").path("createRoom").get(String.class);
 		Room room = new Gson().fromJson(jsonRoom, Room.class);
 	    
-		User user = new User("Thiago", new Coordinate(50l,60l), EnumClasses.MEDIC.getClassId(), room.getRoomKey(), new Commands(0,0,0,0,0));
+		User user = new User("Thiago", new Coordinate(50.0,60.0), EnumClasses.MEDIC.getClassId(), room.getRoomKey(), new Commands(0,0,0,0,0));
 		String jsonUser = user.toJSON();
 	
 		String jsonReturnedRoom = service.path("host").path("post").path("start").accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON)

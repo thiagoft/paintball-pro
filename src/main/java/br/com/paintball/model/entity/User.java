@@ -1,5 +1,7 @@
 package br.com.paintball.model.entity;
 
+import java.util.Date;
+
 import com.google.gson.Gson;
 
 
@@ -11,6 +13,7 @@ public class User {
 	private Integer userClass;
 	private Long roomKey;
 	private Commands commands;
+	private Date lastSend;
 	
 	public Coordinate getCoordinate() {
 		return coordinate;
@@ -36,12 +39,23 @@ public class User {
 		return commands;
 	}
 
-	public User(Long userId, String userName, Coordinate coordinate, Integer userClass, Long roomKey, Commands commands) {
+	public Date getLastSend() {
+		return lastSend;
+	}
+
+	public void setLastSend(Date lastSend) {
+		this.lastSend = lastSend;
+	}
+
+	public User(Long userId, String userName, Coordinate coordinate, Integer userClass, Long roomKey, 
+				Commands commands, Date lastSend) {
 		this.userId = userId;
 		this.userName = userName;
 		this.coordinate = coordinate;
 		this.userClass = userClass;
+		this.roomKey = roomKey;
 		this.commands = commands;
+		this.lastSend = lastSend;
 	}
 	
 	public User(String userName, Coordinate coordinate, Integer userClass, Long roomKey, Commands commands) {
@@ -60,8 +74,7 @@ public class User {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((roomKey == null) ? 0 : roomKey.hashCode());
-		result = prime * result
-				+ ((userName == null) ? 0 : userName.hashCode());
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
 	}
 
@@ -79,14 +92,14 @@ public class User {
 				return false;
 		} else if (!roomKey.equals(other.roomKey))
 			return false;
-		if (userName == null) {
-			if (other.userName != null)
+		if (userId == null) {
+			if (other.userId != null)
 				return false;
-		} else if (!userName.equals(other.userName))
+		} else if (!userId.equals(other.userId))
 			return false;
 		return true;
 	}
-	
+
 	public String toJSON() {
 		return new Gson().toJson(this);
 	}

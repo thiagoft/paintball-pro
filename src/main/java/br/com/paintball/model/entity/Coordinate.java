@@ -2,18 +2,18 @@ package br.com.paintball.model.entity;
 
 public class Coordinate {
 	
-	private Long latitude;
-	private Long longitude;
+	private Double latitude;
+	private Double longitude;
 	
-	public Long getLatitude() {
+	public Double getLatitude() {
 		return latitude;
 	}
 
-	public Long getLongitude() {
+	public Double getLongitude() {
 		return longitude;
 	}
 	
-	public Coordinate(Long latitude, Long longitude) {
+	public Coordinate(Double latitude, Double longitude) {
 		this.latitude = latitude;
 		this.longitude = longitude;
 	}

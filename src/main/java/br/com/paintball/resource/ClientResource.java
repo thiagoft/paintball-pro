@@ -7,6 +7,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -43,7 +44,25 @@ public class ClientResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String updateUser(String obj) {
 		User user = new Gson().fromJson(obj, User.class);
-		return new Gson().toJson(this.clientBusiness.addUser(user));
+		return new Gson().toJson(this.clientBusiness.updateUser(user));
+	}
+	
+	@POST
+	@Path("post/insert")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String createUser(String obj) {
+		User user = new Gson().fromJson(obj, User.class);
+		return new Gson().toJson(this.clientBusiness.insertUser(user));
+	}
+	
+	@POST
+	@Path("post/remove")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response removeUser(String obj) {
+		User user = new Gson().fromJson(obj, User.class);
+		this.clientBusiness.removeUser(user);
+		return Response.ok().build();
 	}
 	
 	/*@POST

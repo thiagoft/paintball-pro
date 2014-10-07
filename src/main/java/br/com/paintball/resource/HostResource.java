@@ -42,6 +42,6 @@ public class HostResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String startRoom(String obj) {
 		User user = new Gson().fromJson(obj, User.class);
-		return new Gson().toJson(this.clientBusiness.addUser(user));
+		return new Gson().toJson(this.clientBusiness.insertUser(user));
 	}
 }
