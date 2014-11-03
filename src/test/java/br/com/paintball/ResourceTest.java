@@ -1,24 +1,9 @@
 package br.com.paintball;
 
-import java.net.URI;
-
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.UriBuilder;
-
-import org.junit.Assert;
-import org.junit.Test;
-
-import br.com.paintball.model.entity.UserTest;
-
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.api.client.config.ClientConfig;
-import com.sun.jersey.api.client.config.DefaultClientConfig;
 
 public class ResourceTest {
 
-	@Test
+	/*@Test
 	public void testAdd() {
 		
 		ClientConfig config = new DefaultClientConfig();
@@ -47,6 +32,6 @@ public class ResourceTest {
 	private static URI getBaseURI() {
 		//return UriBuilder.fromUri("http://localhost:8080/paintball-pro/rest").build();
 		return UriBuilder.fromUri("http://www.thiagoft.com.br/paintball-pro/rest").build();
-	}
+	}*/
 	
 }
