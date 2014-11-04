@@ -25,6 +25,62 @@
     <context:component-scan base-package="br.com.paintball" />
     <context:component-scan base-package="br.com.paintball.resource" />
     
+    <!-- JPA EntityManagerFactory do spring -->
+    <bean id="entityManagerFactory" autowire="default"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" >
+		
+        <property name="dataSource" ref="dataSource" />
+        <property name="packagesToScan" value="br.com.paintball.model.entity" />
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="showSql" value="true" />
+                <property name="generateDdl" value="false" />
+                <property name="databasePlatform" value="org.hibernate.dialect.MySQL5Dialect" />
+            </bean>
+        </property>
+    </bean>
+    
+    <!-- Spring LazyConnectionDataSourceProxy -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy">
+        <property name="targetDataSource">
+            <ref local="mainDataSource" />
+        </property>
+    </bean>
+
+    <!-- BoneCP DataSource -->
+    <bean id="mainDataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
+        
+        <!-- Integrator -->
+        <!--
+        <property name="driverClass" value="com.mysql.jdbc.Driver" />
+        <property name="jdbcUrl" value="jdbc:mysql://184.107.54.145:3306/prandone_eventosdb" />
+        <property name="username" value="prandone_1"/>
+        <property name="password" value="prandone123"/>
+        -->
+        
+        <!-- Local -->
+        <property name="driverClass" value="com.mysql.jdbc.Driver" />
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/prandone_eventosdb" />
+        <property name="username" value="root"/>
+        <property name="password" value="1234"/>
+        
+        <property name="idleConnectionTestPeriodInMinutes" value="1"/>
+        <property name="idleMaxAgeInMinutes" value="3"/>
+        <property name="maxConnectionsPerPartition" value="13"/>
+        <property name="minConnectionsPerPartition" value="3"/>
+        <property name="partitionCount" value="3"/>
+        <property name="acquireIncrement" value="3"/>
+        <property name="statementsCacheSize" value="50"/>
+        <property name="releaseHelperThreads" value="3"/>
+        <!--<property name="statisticsEnabled" value="true"/>-->
+    </bean>
+
+    <!-- Transaction Manager -->	
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
     <!-- Dependencias -->
     <!--<bean id="genericDao" class="br.com.paintball.dao.GenericDao" />
     <bean id="hostBusiness" class="br.com.paintball.model.business.HostBusiness" />-->
