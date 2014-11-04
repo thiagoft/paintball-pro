@@ -1,4 +1,4 @@
-package enums;
+package br.com.paintball.enums;
 
 public enum EnumStatus {
 	ATIVO(1),

@@ -8,6 +8,7 @@ import javax.ws.rs.core.UriBuilder;
 import org.junit.Assert;
 import org.junit.Test;
 
+import br.com.paintball.enums.EnumClasses;
 import br.com.paintball.model.entity.Commands;
 import br.com.paintball.model.entity.Coordinate;
 import br.com.paintball.model.entity.Room;
@@ -19,8 +20,6 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
-
-import enums.EnumClasses;
 
 public class ClientResourceTest {
 

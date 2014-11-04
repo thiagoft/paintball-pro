@@ -1,4 +1,4 @@
-package enums;
+package br.com.paintball.enums;
 
 public enum EnumClasses {
 	ENGINEER(0),

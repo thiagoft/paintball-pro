@@ -7,9 +7,9 @@ import java.util.Set;
 
 import org.springframework.stereotype.Repository;
 
+import br.com.paintball.enums.EnumStatus;
 import br.com.paintball.model.entity.Room;
 import br.com.paintball.model.entity.User;
-import enums.EnumStatus;
 
 @Repository
 public class GenericDao {

@@ -5,7 +5,7 @@ import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import enums.EnumStatus;
+import br.com.paintball.enums.EnumStatus;
 import br.com.paintball.model.entity.Room;
 import br.com.paintball.model.entity.User;
 
