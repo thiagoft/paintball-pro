@@ -1,20 +1,50 @@
 package br.com.paintball.dao;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.lang.reflect.ParameterizedType;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
 
-import br.com.paintball.enums.EnumStatus;
-import br.com.paintball.model.entity.Room;
-import br.com.paintball.model.entity.User;
+import br.com.paintball.interfaces.IDao;
 
 @Repository
-public class GenericDao {
+@SuppressWarnings("unchecked")
+public abstract class GenericDao<T> implements IDao<T>{
 	
-	public static final Map<Long,Set<User>> userMap;
+	@PersistenceContext
+	private EntityManager entityManager;
+
+	public void insert(T obj) {
+		entityManager.persist(obj);		
+	}
+
+	public void update(T obj) {
+		entityManager.merge(obj);		
+	}
+	
+	public T findById(Long id) {
+		return (T) entityManager.find(getTypeClass(), id);
+    }
+
+	public List<T> list() {
+		return entityManager.createQuery(("FROM " + getTypeClass().getName())).getResultList();
+    }
+
+	public void remove(T obj) {
+		entityManager.remove(obj);
+	}	
+	
+	private Class<?> getTypeClass() {
+		Class<?> entity = (Class<?>) ((ParameterizedType) this.getClass()
+				.getGenericSuperclass()).getActualTypeArguments()[1];
+		return entity;
+	}
+	
+
+	/*public static final Map<Long,Set<User>> userMap;
 	public static Long userSequence;
 	
 	static {
@@ -89,23 +119,7 @@ public class GenericDao {
 		} else {
 			return null;
 		}
-	}
-	
-	/*public void addUser(UserTest userTest) {
-		if (userMap.containsKey(userTest.getUserId())) {
-			userMap.get(userTest.getUserId()).add(userTest);
-		} else {
-			userMap.put(userTest.getUserId(), new HashSet<UserTest>());
-			userMap.get(userTest.getUserId()).add(userTest);
-		}
-	}
-	
-	public Set<UserTest> findUserList(Long user) {
-		if (userMap.containsKey(user)) {
-			return userMap.get(user);
-		} else {
-			return null;
-		}
 	}*/
-	
+
+
 }

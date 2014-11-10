@@ -1,11 +1,14 @@
 package br.com.paintball.model.business;
 
+import java.util.HashSet;
 import java.util.Random;
 
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import br.com.paintball.dao.HostDao;
+import br.com.paintball.enums.EnumStatus;
 import br.com.paintball.model.entity.Room;
 
 @Component
@@ -23,7 +26,9 @@ public class HostBusiness {
 		Room room = null;
 		try {
 			do {
-				room = this.hostDao.createRoom(new Long(randomNumber.nextInt(10000)));
+				//room = new Room(, EnumStatus.INATIVO.getStatus(), new HashSet<User>());
+				room = new Room(new Long(randomNumber.nextInt(10000)), EnumStatus.INATIVO.getStatus(), null);
+				this.hostDao.insert(room);
 			} while (room == null);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -33,7 +38,7 @@ public class HostBusiness {
 	
 	public Room findRoom(Long roomKey) {
 		try {
-			return this.hostDao.findRoom(roomKey);
+			return this.hostDao.findById(roomKey);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

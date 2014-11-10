@@ -27,7 +27,8 @@ public class ClientBusiness {
 		try {
 			user.setLastSend(new Date());
 			this.checkUsersStats(user.getRoomKey());
-			return this.clientDao.updateUser(user);
+			this.clientDao.update(user); 
+			return this.hostBusiness.findRoom(user.getRoomKey());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -36,7 +37,7 @@ public class ClientBusiness {
 	
 	public boolean removeUser(User user) {
 		try {
-			return this.clientDao.removeUser(user);
+			this.clientDao.remove(user);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -46,7 +47,8 @@ public class ClientBusiness {
 	public User insertUser(User user) {
 		try {
 			user.setLastSend(new Date());
-			return this.clientDao.insertUser(user);
+			this.clientDao.insert(user);
+			return user;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -63,7 +65,7 @@ public class ClientBusiness {
 		}
 		
 		for (User user : users){
-			this.clientDao.updateUser(new User(user.getUserId(),user.getUserName(),
+			this.clientDao.update(new User(user.getUserId(),user.getUserName(),
 									  new Coordinate(0.0,0.0),user.getUserClass(),
 									  user.getRoomKey(),user.getCommands(),user.getLastSend()));
 		}

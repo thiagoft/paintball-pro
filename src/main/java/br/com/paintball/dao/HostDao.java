@@ -1,18 +1,13 @@
 package br.com.paintball.dao;
 
-import java.util.HashSet;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import br.com.paintball.enums.EnumStatus;
 import br.com.paintball.model.entity.Room;
-import br.com.paintball.model.entity.User;
 
 @Component
-public class HostDao {
+public class HostDao extends GenericDao<Room> {
 	
-	private GenericDao genericDao;
+	/*private GenericDao genericDao;
 
 	@Autowired
 	public HostDao(GenericDao genericDao) {
@@ -35,6 +30,6 @@ public class HostDao {
 	public Room findRoom(Long roomKey) {
 		Room room = new Room(roomKey, null, null);
 		return (Room) this.genericDao.findById(Room.class.getName(), room);
-	}
+	}*/
 	
 }
