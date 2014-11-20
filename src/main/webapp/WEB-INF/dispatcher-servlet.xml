@@ -60,9 +60,9 @@
         
         <!-- Local -->
         <property name="driverClass" value="com.mysql.jdbc.Driver" />
-        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/prandone_eventosdb" />
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/paintball" />
         <property name="username" value="root"/>
-        <property name="password" value="1234"/>
+        <property name="password" value="0926"/>
         
         <property name="idleConnectionTestPeriodInMinutes" value="1"/>
         <property name="idleMaxAgeInMinutes" value="3"/>
