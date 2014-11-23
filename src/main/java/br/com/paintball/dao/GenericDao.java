@@ -8,22 +8,25 @@ import java.util.Set;
 import org.springframework.stereotype.Repository;
 
 import br.com.paintball.enums.EnumStatus;
+import br.com.paintball.model.entity.Coordinate;
 import br.com.paintball.model.entity.Room;
 import br.com.paintball.model.entity.User;
 
 @Repository
 public class GenericDao {
 	
-	public static final Map<Long,Set<User>> userMap;
+	//public static final Map<Long,Set<User>> userMap;
+	public static final Map<Long,Room> userMap;
 	public static Long userSequence;
 	
 	static {
-		userMap = new HashMap<Long,Set<User>>();
+		//userMap = new HashMap<Long,Set<User>>();
+		userMap = new HashMap<Long,Room>();
 		userSequence = 0l;
 	}
 	
 	public boolean save(String name, Object obj) {
-		userMap.put(((Room) obj).getRoomKey(), new HashSet<User>());
+		userMap.put(((Room) obj).getRoomKey(), new Room(((Room) obj).getRoomKey(),((Room) obj).getStatus(),((Room) obj).getUserList(),((Room) obj).getCoordinate()));
 		return true;
 	}
 	
@@ -31,11 +34,11 @@ public class GenericDao {
 		User user = (User) obj;
 		Room room = null;
 		if (userMap.containsKey(user.getRoomKey())) {
-			for (User instantUser : userMap.get(user.getRoomKey())) {
+			for (User instantUser : userMap.get(user.getRoomKey()).getUserList()) {
 				if (user.equals(instantUser)) {
-					userMap.get(user.getRoomKey()).remove(instantUser);
-					userMap.get(user.getRoomKey()).add(user);
-					room = new Room(user.getRoomKey(),EnumStatus.ATIVO.getStatus(),userMap.get(user.getRoomKey()));
+					userMap.get(user.getRoomKey()).getUserList().remove(instantUser);
+					userMap.get(user.getRoomKey()).getUserList().add(user);
+					room = new Room(user.getRoomKey(),EnumStatus.ATIVO.getStatus(),userMap.get(user.getRoomKey()).getUserList(),userMap.get(user.getRoomKey()).getCoordinate());
 					break;
 				} else {
 					room = null;
@@ -51,9 +54,9 @@ public class GenericDao {
 		User user = (User) obj;
 		boolean isRemoved = false;
 		if (userMap.containsKey(user.getRoomKey())) {
-			for (User instantUser : userMap.get(user.getRoomKey())) {
+			for (User instantUser : userMap.get(user.getRoomKey()).getUserList()) {
 				if (user.equals(instantUser)) {
-					userMap.get(user.getRoomKey()).remove(instantUser);
+					userMap.get(user.getRoomKey()).getUserList().remove(instantUser);
 					isRemoved = true;
 					break;
 				} else {
@@ -74,7 +77,7 @@ public class GenericDao {
 			} else {
 				user = new User(++userSequence, user.getUserName(), user.getCoordinate(), user.getUserClass(),
 						user.getRoomKey(), user.getCommands(), user.getLastSend());
-				userMap.get(user.getRoomKey()).add(user);
+				userMap.get(user.getRoomKey()).getUserList().add(user);
 			}
 			return user;
 		} else {
@@ -85,7 +88,7 @@ public class GenericDao {
 	public Object findById(String name, Object obj) {
 		Room room = (Room) obj;
 		if (userMap.containsKey(room.getRoomKey())) {
-			return new Room(room.getRoomKey(), room.getStatus(), userMap.get(room.getRoomKey()));
+			return new Room(room.getRoomKey(), room.getStatus(), userMap.get(room.getRoomKey()).getUserList(),userMap.get(room.getRoomKey()).getCoordinate());
 		} else {
 			return null;
 		}

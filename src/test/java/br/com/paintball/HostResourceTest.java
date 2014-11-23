@@ -16,6 +16,7 @@ import br.com.paintball.model.entity.User;
 
 import com.google.gson.Gson;
 import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
@@ -50,6 +51,31 @@ public class HostResourceTest {
 		        .post(String.class,jsonUser);
 
 		Assert.assertTrue(!jsonReturnedRoom.equals("null"));
+	}
+	
+	@Test
+	public void testSetObjective() {
+		
+		ClientConfig config = new DefaultClientConfig();
+		Client client = Client.create(config);
+	    WebResource service = client.resource(getBaseURI());
+	    
+	    String jsonRoom = service.path("host").path("get").path("createRoom").get(String.class);
+		Room room = new Gson().fromJson(jsonRoom, Room.class);
+	    
+		User user = new User("Thiago", new Coordinate(50.0,60.0), EnumClasses.MEDIC.getClassId(), room.getRoomKey(), new Commands(0,0,0,0,0));
+		String jsonUser = user.toJSON();
+	
+		String jsonReturnedRoom = service.path("host").path("post").path("start").accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON)
+		        .post(String.class,jsonUser);
+		Room roomReturned = new Gson().fromJson(jsonReturnedRoom, Room.class);
+		roomReturned.setCoordinate(new Coordinate(50.0,50.0));
+		String jsonRoomWithObjective = roomReturned.toJSON();
+		
+		ClientResponse response = service.path("host").path("post").path("saveObjective").accept(MediaType.APPLICATION_JSON).type(MediaType.APPLICATION_JSON)
+        .post(ClientResponse.class,jsonRoomWithObjective);
+
+		Assert.assertEquals(200, response.getStatus());
 	}
 
 	private static URI getBaseURI() {

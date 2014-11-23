@@ -5,7 +5,10 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.google.gson.JsonElement;
+
 import br.com.paintball.dao.HostDao;
+import br.com.paintball.model.entity.Coordinate;
 import br.com.paintball.model.entity.Room;
 
 @Component
@@ -38,5 +41,16 @@ public class HostBusiness {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public boolean updateObjectiveCoordinate(Long roomKey,Coordinate coordinateFromJson) {
+		Room room = null;
+		try {
+			room = this.hostDao.findRoom(roomKey);
+			room.setCoordinate(coordinateFromJson);
+			return this.hostDao.saveObjectiveCoordinate(room);
+		} catch (Exception e) {
+			return false;
+		}
 	}
 }
